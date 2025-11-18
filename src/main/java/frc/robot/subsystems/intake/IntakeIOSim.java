@@ -24,16 +24,23 @@ public class IntakeIOSim implements IntakeIO {
     sensorImpl = SimDevice.create("IntakeSensorFront", 3);
     sensor = sensorImpl.createBoolean("IsTriggered", Direction.kInput, false);
   }
+
   @Override
-  public void updateInputs(IntakeIOInputs inputs){
+  public void updateInputs(IntakeIOInputs inputs) {
     intakeMotorSim.update(0.02);
     inputs.current = intakeMotorSim.getCurrentDrawAmps();
     inputs.appliedVolts = intakeMotorSim.getInputVoltage();
     inputs.angularVelocityRotationsPerMinute = intakeMotorSim.getAngularVelocityRPM();
   }
+
   @Override
-  public void setVoltage(double voltage){
+  public void setVoltage(double voltage) {
     appliedVolts = MathUtil.clamp(voltage, -12, 12);
     intakeMotorSim.setInputVoltage(appliedVolts);
+  }
+
+  @Override
+  public void stopIntake() {
+    intakeMotorSim.setInputVoltage(0);
   }
 }
