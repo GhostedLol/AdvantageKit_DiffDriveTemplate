@@ -103,6 +103,7 @@ public class RobotContainer {
         DriveCommands.arcadeDrive(
             drive, () -> -controller.getLeftY(), () -> -controller.getRightX()));
     controller.a().whileTrue(intake.intake());
+    controller.b().whileTrue(intake.stop());
   }
 
   /**
